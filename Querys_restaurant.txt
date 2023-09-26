@@ -14,3 +14,25 @@
 		db.restaurantes.find({},{"name":1,"borough":"Bronx"});
 
 	6. Escriu una consulta per mostrar els primers 5 restaurants que estan en el Bronx.
+		db.restaurantes.find({}).limit(5);
+
+	7. Escriu una consulta per mostrar els 5 restaurants després de saltar els primers 5 que siguin del Bronx.
+		 db.restaurantes.find({}).skip(5).limit(5);
+
+	8. Escriu una consulta per trobar els restaurants que tenen algun score més gran de 90.
+		 db.restaurantes.find({"grades.score":{$gt:90}});
+
+	9. Escriu una consulta per trobar els restaurants que tenen un score més gran que 80 però menys que 100.
+		 db.restaurantes.find({"grades.score":{$gt:80, $lt:100}});
+
+	10. Escriu una consulta per trobar els restaurants que estan situats en una longitud inferior a -95.754168.
+		db.restaurantes.find({"address.coord.1":{$lt:-95.754168}});
+
+	11.Escriu una consulta de MongoDB per a trobar els restaurants que no cuinen menjar 'American ' i tenen algun score superior a 70 i latitud inferior a -65.754168.
+		db.restaurantes.find({"cuisine":{$ne:"American"}, "grade.score":{$gt:70}, "address.coord.0":{$lt:-65.754168}})
+
+	12.Escriu una consulta per trobar els restaurants que no preparen menjar 'American' i tenen algun score superior a 70 i que, a més, es localitzen en longituds inferiors a -65.754168. 
+	Nota: Fes aquesta consulta sense utilitzar operador $and.
+		db.restaurantes.find({"cuisine":{$ne:"American"}, "grade.score":{$gt:70}, "address.coord.1":{$lt:-65.754168}})
+
+	13.
