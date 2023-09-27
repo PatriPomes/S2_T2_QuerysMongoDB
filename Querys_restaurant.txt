@@ -28,11 +28,39 @@
 	10. Escriu una consulta per trobar els restaurants que estan situats en una longitud inferior a -95.754168.
 		db.restaurantes.find({"address.coord.1":{$lt:-95.754168}});
 
-	11.Escriu una consulta de MongoDB per a trobar els restaurants que no cuinen menjar 'American ' i tenen algun score superior a 70 i latitud inferior a -65.754168.
-		db.restaurantes.find({"cuisine":{$ne:"American"}, "grade.score":{$gt:70}, "address.coord.0":{$lt:-65.754168}})
+	11. Escriu una consulta de MongoDB per a trobar els restaurants que no cuinen menjar 'American ' i tenen algun score superior a 70 i latitud inferior a -65.754168.
+		db.restaurantes.find({"cuisine":{$ne:"American "}, "grades.score":{$gt:70}, "address.coord.0":{$lt:-65.754168}})
 
-	12.Escriu una consulta per trobar els restaurants que no preparen menjar 'American' i tenen algun score superior a 70 i que, a més, es localitzen en longituds inferiors a -65.754168. 
+	12. Escriu una consulta per trobar els restaurants que no preparen menjar 'American' i tenen algun score superior a 70 i que, a més, es localitzen en longituds inferiors a -65.754168. 
 	Nota: Fes aquesta consulta sense utilitzar operador $and.
-		db.restaurantes.find({"cuisine":{$ne:"American"}, "grade.score":{$gt:70}, "address.coord.1":{$lt:-65.754168}})
+		db.restaurantes.find({"cuisine":{$ne:"American "}, "grades.score":{$gt:70}, "address.coord.1":{$lt:-65.754168}})
 
-	13.
+	13. Escriu una consulta per trobar els restaurants que no preparen menjar 'American ', tenen alguna nota 'A' i no pertanyen a Brooklyn. 
+	S'ha de mostrar el document segons la cuisine en ordre descendent.
+		db.restaurantes.find({"cuisine":{$ne:"American "}, "grades.grade":{$eq:"A"}, "borough":{$ne:"Brooklyn"}}).sort({"cuisine":-1})
+
+	14. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que contenen 'Wil' en les tres primeres lletres en el seu nom.
+		db.restaurantes.find({"name":{$regex:/^Wil/}},{"restaurant_id":1, "name":1, "borough":1, "cuisine":1})
+
+	15. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que contenen 'ces' en les últimes tres lletres en el seu nom.
+		db.restaurantes.find({"name":{$regex:/ces$/}},{"restaurant_id":1, "name":1, "borough":1, "cuisine":1})
+
+	16. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que contenen 'Reg' en qualsevol lloc del seu nom.
+		db.restaurantes.find({"name":{$regex:/Reg/}},{"restaurant_id":1, "name":1, "borough":1, "cuisine":1})
+
+	17. Escriu una consulta per trobar els restaurants que pertanyen al Bronx i preparen plats Americans o xinesos.
+ 		db.restaurantes.find({$or:[{"cuisine":"American "}, {"cuisine":"Chinese"}]} ,{"restaurant_id":1, "name":1, "borough":"Bronx","cuisine":1})
+
+	18. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per aquells restaurants que pertanyen a Staten Island, Queens, Bronx o Brooklyn.
+		db.restaurantes.find({$or:[{"borough":"Staten Island"},{"borough":"Bronx"},{"borough":"Queens"}, {"borough":"Brooklyn"}]} ,{"restaurant_id":1, "name":1, "borough":1,"cuisine":1})
+
+	19. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que NO pertanyen a Staten Island, Queens, Bronx o Brooklyn.
+		 db.restaurantes.find({"borough":{$nin:["Staten Island","Bronx","Queens","Brooklyn"]}} ,{"restaurant_id":1, "name":1, "borough":1,"cuisine":1})
+
+	20. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que aconsegueixin una nota menor que 10
+		db.restaurantes.find({"grades.score":{$lt:10}},{"restaurant":1, "name":1, "borough":1, "cuisine":1})
+
+	21. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que preparen marisc ('seafood') excepte si són 'American ',
+		 'Chinese' o el name del restaurant comença amb lletres 'Wil'.
+		
+		
